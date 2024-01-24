@@ -1,0 +1,137 @@
+<div class="flex mt-3 py-3 mx-0 justify-center">
+    <div class="p-2 w-[480px] mx-5  ">
+        <div class=" border-2">
+
+
+            @if (isEditCard) {
+            <h2 class="text-center mb-1 text-2xl font-bold"> Edit of Card</h2>
+            }@else {
+            <h2 class="text-center mb-1 text-2xl font-bold"> Create of Card</h2>
+            }
+            <hr>
+
+            <div class="w-96 mx-auto bg-white p-1 mt-3  ">
+
+
+                <input id="dropzone-file" type="file" accept="image/*" multiple (change)="handleFileInput($event)"
+                    [(ngModel)]="fileName" />
+
+
+                @for (preview of previews ; track $index) {
+                @if (preview) {
+                <img [src]="preview" class="preview w-full h-32  object-contain " />
+                }
+                }
+
+
+                <div class="flex justify-between py-2">
+                    <textarea name="" id="" cols="50" rows="5" class="w-full border py-2 px-2"
+                        [(ngModel)]="postDesc"></textarea>
+                </div>
+
+                <div>
+
+                    @if (isEditCard) {
+                    <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 my-3 border
+                    border-blue-500 hover:border-transparent rounded w-full" (click)="updatePost()">
+                        Update Post
+                    </button>
+                    }@else {
+                    <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 my-3 border
+                        border-blue-500 hover:border-transparent rounded w-full" (click)="savePost()">
+                        Save Post
+                    </button>
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-2 w-[480px] mx-5 border-2   ">
+
+
+        <h2 class="text-center mb-1 text-2xl font-bold"> List of Card</h2>
+        <hr>
+
+        <div class="max-h-[75vh] overflow-auto">
+            <ul>
+
+
+                <li class=" border-b-2 flex justify-between ">
+                    <div class="p-2 w-32"> Images</div>
+                    <div class="p-2 w-2/4 max-w-2/4">
+                        <p> Post Desc</p>
+                    </div>
+                    <div class="p-2 flex">
+                        <p>Action</p>
+
+                        <div class=" p-1 w-8 h-8  mx-1 " (click)="addCard()">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                fill="#000000" version="1.1" id="Capa_1" viewBox="0 0 27.963 27.963"
+                                xml:space="preserve">
+                                <g>
+                                    <g id="c140__x2B_">
+                                        <path
+                                            d="M13.98,0C6.259,0,0,6.26,0,13.982s6.259,13.981,13.98,13.981c7.725,0,13.983-6.26,13.983-13.981    C27.963,6.26,21.705,0,13.98,0z M21.102,16.059h-4.939v5.042h-4.299v-5.042H6.862V11.76h5.001v-4.9h4.299v4.9h4.939v4.299H21.102z    " />
+                                    </g>
+                                    <g id="Capa_1_9_">
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+
+                    </div>
+                </li>
+                @for (item of postList; track item.postId; let index = $index) {
+                <li class="border-b-2 flex justify-between ">
+                    <div class="p-2"> <img [src]="item.postUrl" alt="" srcset="" class="w-32 h-32  object-cover  ">
+                    </div>
+                    <div class="p-2 w-2/4 max-w-2/4">
+                        <p>{{item.postDesc}}</p>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+
+
+                        <div class=" p-1 w-8 h-8 border-2 mx-1 rounded-full" (click)="deleteCard(item)">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                fill="#000000" version="1.1" id="Capa_1" viewBox="0 0 482.428 482.429"
+                                xml:space="preserve">
+                                <g>
+                                    <g>
+                                        <path
+                                            d="M381.163,57.799h-75.094C302.323,25.316,274.686,0,241.214,0c-33.471,0-61.104,25.315-64.85,57.799h-75.098    c-30.39,0-55.111,24.728-55.111,55.117v2.828c0,23.223,14.46,43.1,34.83,51.199v260.369c0,30.39,24.724,55.117,55.112,55.117    h210.236c30.389,0,55.111-24.729,55.111-55.117V166.944c20.369-8.1,34.83-27.977,34.83-51.199v-2.828    C436.274,82.527,411.551,57.799,381.163,57.799z M241.214,26.139c19.037,0,34.927,13.645,38.443,31.66h-76.879    C206.293,39.783,222.184,26.139,241.214,26.139z M375.305,427.312c0,15.978-13,28.979-28.973,28.979H136.096    c-15.973,0-28.973-13.002-28.973-28.979V170.861h268.182V427.312z M410.135,115.744c0,15.978-13,28.979-28.973,28.979H101.266    c-15.973,0-28.973-13.001-28.973-28.979v-2.828c0-15.978,13-28.979,28.973-28.979h279.897c15.973,0,28.973,13.001,28.973,28.979    V115.744z" />
+                                        <path
+                                            d="M171.144,422.863c7.218,0,13.069-5.853,13.069-13.068V262.641c0-7.216-5.852-13.07-13.069-13.07    c-7.217,0-13.069,5.854-13.069,13.07v147.154C158.074,417.012,163.926,422.863,171.144,422.863z" />
+                                        <path
+                                            d="M241.214,422.863c7.218,0,13.07-5.853,13.07-13.068V262.641c0-7.216-5.854-13.07-13.07-13.07    c-7.217,0-13.069,5.854-13.069,13.07v147.154C228.145,417.012,233.996,422.863,241.214,422.863z" />
+                                        <path
+                                            d="M311.284,422.863c7.217,0,13.068-5.853,13.068-13.068V262.641c0-7.216-5.852-13.07-13.068-13.07    c-7.219,0-13.07,5.854-13.07,13.07v147.154C298.213,417.012,304.067,422.863,311.284,422.863z" />
+                                    </g>
+                                </g>
+                            </svg>
+
+                        </div>
+
+                        <div class=" p-1 w-8 h-8 border-2 mx-1 rounded-full" (click)="editCard(item)">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="m3.99 16.854-1.314 3.504a.75.75 0 0 0 .966.965l3.503-1.314a3 3 0 0 0 1.068-.687L18.36 9.175s-.354-1.061-1.414-2.122c-1.06-1.06-2.122-1.414-2.122-1.414L4.677 15.786a3 3 0 0 0-.687 1.068zm12.249-12.63 1.383-1.383c.248-.248.579-.406.925-.348.487.08 1.232.322 1.934 1.025.703.703.945 1.447 1.025 1.934.058.346-.1.677-.348.925L19.774 7.76s-.353-1.06-1.414-2.12c-1.06-1.062-2.121-1.415-2.121-1.415z"
+                                    fill="#000000" />
+                            </svg>
+                        </div>
+                    </div>
+                </li>
+
+                }
+
+                @empty {
+                <li class=" border-b-2 flex justify-between  ">
+                    <p class="p-2 w-full text-center"> Is Empty</p>
+                </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
