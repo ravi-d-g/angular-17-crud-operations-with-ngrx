@@ -52,7 +52,6 @@ export class BasicComponent {
 
   constructor(private service: DataService) {
 
-
   }
 
   ngOnInit() {
